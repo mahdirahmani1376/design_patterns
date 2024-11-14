@@ -5,7 +5,9 @@ namespace Src\Loan;
 use App\Exceptions\LoanNotAllowedException;
 use Illuminate\Pipeline\Pipeline;
 use Src\Loan\Checkers\AmountChecker;
+use Src\Loan\Checkers\CheckUserCreditScore;
 use Src\Loan\Checkers\CheckUserHasLoan;
+use Src\Loan\Checkers\PayoutMonthCheck;
 
 class LoanService
 {
@@ -18,7 +20,11 @@ class LoanService
     {
         return new AmountChecker(
             new CheckUserHasLoan(
+                new PayoutMonthCheck(
+                    new CheckUserCreditScore(
 
+                    )
+                )
             )
         );
     }
