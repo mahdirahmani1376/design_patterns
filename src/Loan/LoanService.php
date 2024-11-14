@@ -16,7 +16,7 @@ class LoanService
         return $this->buildChain()->handle($request);
     }
 
-    private function buildChain(): LoanCheckInterface
+    private function buildChain(): LoanCheckInterface|null
     {
         return new AmountChecker(
             new CheckUserHasLoan(
