@@ -2,8 +2,6 @@
 
 namespace Src\Loan;
 
-use App\Exceptions\LoanNotAllowedException;
-use Illuminate\Pipeline\Pipeline;
 use Src\Loan\Checkers\AmountChecker;
 use Src\Loan\Checkers\CheckUserCreditScore;
 use Src\Loan\Checkers\CheckUserHasLoan;
@@ -16,7 +14,7 @@ class LoanService
         return $this->buildChain()->handle($request);
     }
 
-    private function buildChain(): LoanCheckInterface|null
+    private function buildChain(): LoanCheckInterface
     {
         return new AmountChecker(
             new CheckUserHasLoan(
